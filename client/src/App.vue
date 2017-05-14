@@ -6,14 +6,13 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
 import axios from "axios";
 export default {
   name: 'app',
   created() {
-    axios.get("/api/todos")
-    // axios.get("http://localhost/8000/api")
-    .then(response => console.log(response.data))
-
+    console.log("in created")
+    this.$store.dispatch('LOAD_PROJECT_LIST');
   }
 }
 </script>

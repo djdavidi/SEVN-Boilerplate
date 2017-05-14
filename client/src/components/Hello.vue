@@ -1,6 +1,7 @@
 <template>
   <div class="hello">
     <h1>{{ msg }}</h1>
+    proejej{{projects}} after
     <h2>Essential Links</h2>
     <ul>
       <li><a href="https://vuejs.org" target="_blank">Core Docs</a></li>
@@ -21,13 +22,17 @@
 </template>
 
 <script>
+import {mapState} from "vuex";
 export default {
   name: 'hello',
   data () {
     return {
       msg: 'Welcome to Your Vue.js App'
     }
-  }
+  },
+  computed: mapState([
+  'projects'
+  ])
 }
 </script>
 
