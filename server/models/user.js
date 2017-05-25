@@ -24,8 +24,11 @@ module.exports = function(sequelize, DataTypes) {
   }, {
     underscored: true,
     classMethods: {
-      associate: function(models) {
-        // associations can be defined here
+      associate: (models) => {
+       User.hasMany(models.Item, {
+          foreignKey: 'itemId',
+          as: 'Items',
+        });
       }
     }
   });
