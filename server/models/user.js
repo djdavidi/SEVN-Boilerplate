@@ -1,4 +1,6 @@
 'use strict';
+// add hashing bcrypt etc in later versions that dont use oauth
+// and are actual real applications
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define('User', {
     name: {
@@ -13,6 +15,7 @@ module.exports = function(sequelize, DataTypes) {
     },
     email:{
       type:  DataTypes.STRING,
+      unique: true,
       validate: {
         isEmail: true
       }
