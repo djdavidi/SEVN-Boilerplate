@@ -13,6 +13,11 @@ module.exports = function(sequelize, DataTypes) {
         len: [1,50]
       }
     },
+    id: {
+      autoIncrement: true,
+      primaryKey: true,
+      type: Sequelize.INTEGER
+    },
     email:{
       type:  DataTypes.STRING,
       unique: true,

@@ -2,7 +2,7 @@
   "development": {
     "username": "davidscherban",
     "password": null,
-    "database": "todos-dev",
+    "database": "boilerplate-dev",
     "host": "127.0.0.1",
     "port": 5432,
     "dialect": "postgres"
@@ -10,7 +10,7 @@
   "test": {
     "username": "davidscherban",
     "password": null,
-    "database": "todos-dev",
+    "database": "boilerplate-dev",
     "host": "127.0.0.1",
     "port": 5432,
     "dialect": "postgres"
@@ -18,7 +18,7 @@
   "production": {
     "username": "davidscherban",
     "password": null,
-    "database": "todos-dev",
+    "database": "boilerplate-dev",
     "host": "127.0.0.1",
     "port": 5432,
     "dialect": "postgres"

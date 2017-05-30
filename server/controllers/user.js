@@ -1,38 +1,67 @@
-const User = require('../models').User;
+const User = require('../models/').User;
+const Item = require('../models/').Item;
 
-module.exports = {
-    index(req, res) {
-        User.findAll({
-          include: Item
-        })
-          .then(function (authors) {
-            res.status(200).json(authors);
-          })
-          .catch(function (error) {
-            res.status(500).json(error);
-          });
-    },
-    create(req, res) {
-        return User
-            .create({
-                user: req.body.email,
-            })
-            .then(user => res.status(201).send(user))
-            .catch(error => res.status(400).send(error));
-    },
-    show(req, res) {
-        return User.findById(req.params.id)
-            .then(user => res.status(200).send(user))
-            .catch(error => res.status(400).send(error));
-    },
-    update(req, res) {
-        return User.findById(req.params.id)
-            .then(user => res.status(200).send(user))
-            .catch(error => res.status(400).send(error));
-    },
-    delete(req, res) {
-        return User.findById(req.params.id)
-            .then(user => res.status(200).send(user))
-            .catch(error => res.status(400).send(error));
-    },
+module.exports= {
+  //Get a list of all users using model.findAll()
+  index(req, res) {
+    User.findAll({
+      include: Item
+    })
+      .then(function (users) {
+        res.status(200).json(users);
+      })
+      .catch(function (error) {
+        res.status(500).json(error);
+      });
+  },
+
+  show(req, res) {
+    User.findById(req.params.id, {
+      include: Item
+    })
+    .then(function (user) {
+      res.status(200).json(user);
+    })
+    .catch(function (error){
+      res.status(500).json(error);
+    });
+  },
+
+  create(req, res) {
+    User.create(req.body)
+      .then(function (newUser) {
+        res.status(200).json(newUser);
+      })
+      .catch(function (error){
+        res.status(500).json(error);
+      });
+  },
+
+  update(req, res) {
+    User.update(req.body, {
+      where: {
+        id: req.params.id
+      }
+    })
+    .then(function (updatedUser) {
+      res.status(200).json(updatedUser);
+    })
+    .catch(function (error){
+      res.status(500).json(error);
+    });
+  },
+
+  delete(req, res) {
+    User.destroy({
+      where: {
+        id: req.params.id
+      }
+    })
+    .then(function (deletedUser) {
+      res.status(200).json(deletedUser);
+    })
+    .catch(function (error){
+      res.status(500).json(error);
+    });
+  }
 };

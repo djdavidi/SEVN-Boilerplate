@@ -7,14 +7,14 @@
 <script>
 import {mapState} from "vuex";
 export default {
-  name: 'home',
+  name: "home",
   data () {
     return {
-      welcomeMessage: 'Welcome to the SEVN Boilerplate'
+      welcomeMessage: "Welcome to the SEVN Boilerplate"
     }
   },
   computed: mapState([
-  'projects'
+  "projects"
   ])
 }
 </script>

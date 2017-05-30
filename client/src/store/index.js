@@ -1,17 +1,17 @@
-import Vue from 'vue'
-import Vuex from 'vuex'
-import axios from 'axios'
-Vue.use(Vuex)
+import Vue from "vue";
+import Vuex from "vuex";
+import axios from "axios";
+Vue.use(Vuex);
 const store = new Vuex.Store({
   state: {
     projects: []
   },
   actions: {
     LOAD_PROJECT_LIST: function ({ commit }) {
-      axios.get('/api/todos').then((response) => {
-        commit('SET_PROJECT_LIST', { list: response.data })
+      axios.get("/api/todos").then((response) => {
+        commit("SET_PROJECT_LIST", { list: response.data })
       }, (err) => {
-        console.log(err)
+        console.log("LOAD_PROJECT_LIST-ERROR: ", err);
       })
     }
   },
@@ -26,4 +26,4 @@ const store = new Vuex.Store({
     }
   }
 })
-export default store
+export default store;
