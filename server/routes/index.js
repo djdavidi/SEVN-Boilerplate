@@ -12,12 +12,10 @@ module.exports = (app, passport) => {
 
 
   // user-
-  app.post("/api/user", usersController.create)
-  app.get("/api/user", usersController.getOne)
+  app.post("/api/user", usersController.create);
+  app.get("/api/user", usersController.getOne);
 
-
-
-  app.post("/login", )
+  // app.post("/login", )
   app.get('/logout', (req, res) => {
   	// logout is provided by passport on the req object
         req.logout();
