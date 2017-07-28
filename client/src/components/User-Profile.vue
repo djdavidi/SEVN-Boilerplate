@@ -2,8 +2,8 @@
   <div class="user-profile-page">
    <h1>User Profile</h1>
     <div class="user-details">
-      <div>{{user.name}}</div> 
-      <div>{{user.email}}</div>
+      <div>Name: {{user.name}}</div> 
+      <div>Email: {{user.email}}</div>
     </div>
   </div>
 </template>
@@ -19,7 +19,7 @@ export default {
   computed: mapState([
   "user"
   ]),
-  created: () {
+  created () {
     $store.dispatch("fetchUser");
   }
 }
