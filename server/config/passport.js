@@ -1,4 +1,4 @@
-pa // config/passport.js
+// config/passport.js
 
 // load all the things we need
 var LocalStrategy = require('passport-local').Strategy;
@@ -54,7 +54,7 @@ module.exports = function(passport) {
 
                     // check to see if theres already a user with that email
                     if (user) {
-                        return done(null, false, req.flash('signupMessage', 'That email is already taken.'));
+                        return done(null, false);
                     } else {
 
                         // if there is no user with that email

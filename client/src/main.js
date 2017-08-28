@@ -10,6 +10,9 @@ import store from "./store"
 Vue.config.productionTip = false;
 // Vue.prototype.$http = axios;
 
+// Vue.filter();
+// Vue.directive()
+// Vue.mixin
 /* eslint-disable no-new */
 new Vue({
   el: "#app",
