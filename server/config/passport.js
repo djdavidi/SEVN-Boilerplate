@@ -1,10 +1,9 @@
 // config/passport.js
-
 // load all the things we need
-var LocalStrategy = require('passport-local').Strategy;
-
+const LocalStrategy = require('passport-local').Strategy;
+const bCrypt = require('bcrypt-nodejs');
 // load up the user model
-var User = require('../app/models/user');
+const User = require('../app/models/user');
 
 // expose this function to our app using module.exports
 module.exports = function(passport) {
@@ -22,9 +21,15 @@ module.exports = function(passport) {
 
     // used to deserialize the user
     passport.deserializeUser(function(id, done) {
-        User.findById(id, function(err, user) {
-            done(err, user);
+
+        User.findById(id).then(function(user) {
+            if (user) {
+                done(null, user.get());
+            } else {
+                done(user.errors, null);
+            }
         });
+
     });
 
     // =========================================================================
@@ -47,7 +52,7 @@ module.exports = function(passport) {
 
                 // find a user whose email is the same as the forms email
                 // we are checking to see if the user trying to login already exists
-                User.findOne({ 'local.email': email }, function(err, user) {
+                User.findOne({ where: { email: email } }, function(err, user) {
                     // if there are any errors, return the error
                     if (err)
                         return done(err);
@@ -55,23 +60,29 @@ module.exports = function(passport) {
                     // check to see if theres already a user with that email
                     if (user) {
                         return done(null, false);
+                        ``
                     } else {
 
                         // if there is no user with that email
                         // create the user
-                        var newUser = new User();
-
-                        // set the user's local credentials
-                        newUser.local.email = email;
-                        newUser.local.password = newUser.generateHash(password);
-
-                        // save the user
-                        newUser.save(function(err) {
-                            if (err)
-                                throw err;
-                            return done(null, newUser);
-                        });
+                        newPassword = bCrypt.hashSync(password, bCrypt.genSaltSync(8), null);
+                        var userData = {
+                            email: email,
+                            password: userPassword,
+                            firstname: req.body.firstname,
+                            lastname: req.body.lastname
+                        }
                     }
+
+                    // save the user
+                    User.create(userData).then(function(newUser, created) {
+                        if (!newUser) {
+                            return done(null, false);
+                        }
+                        if (newUser) {
+                            return done(null, newUser);
+                        }
+                    });
 
                 });
 
@@ -79,4 +90,43 @@ module.exports = function(passport) {
 
         }));
 
+    //LOCAL SIGNIN
+    passport.use('local-signin', new LocalStrategy({
+            // by default, local strategy uses username and password, we will override with email
+            usernameField: 'email',
+            passwordField: 'password',
+            passReqToCallback: true // allows us to pass back the entire request to the callback
+        },
+        function(req, email, password, done) {
+            var User = user;
+            var isValidPassword = function(userpass, password) {
+                return bCrypt.compareSync(password, userpass);
+            }
+            User.findOne({
+                where: {
+                    email: email
+                }
+            }).then(function(user) {
+                if (!user) {
+                    return done(null, false, {
+                        message: 'Email does not exist'
+                    });
+                }
+                if (!isValidPassword(user.password, password)) {
+                    return done(null, false, {
+                        message: 'Incorrect password.'
+                    });
+                }
+                var userinfo = user.get();
+                return done(null, userinfo);
+
+            }).catch(function(err) {
+
+                console.log("Error:", err);
+                return done(null, false, {
+                    message: 'Something went wrong with your Signin'
+                });
+            });
+        }
+    ));
 };

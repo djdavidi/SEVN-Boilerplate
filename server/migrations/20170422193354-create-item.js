@@ -1,5 +1,6 @@
-module.exports = (sequelize, DataTypes) => {
-    const Item = sequelize.define('Item', {
+module.exports = {
+  up: (queryInterface, Sequelize) =>
+    queryInterface.createTable('Items', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -22,15 +23,16 @@ module.exports = (sequelize, DataTypes) => {
         allowNull: false,
         type: Sequelize.DATE,
       },
-    }, {
-        classMethods: {
-            associate: (models) => {
-                Item.belongsTo(models.Todo, {
-                    foreignKey: 'userId',
-                    onDelete: 'CASCADE',
-                });
-            },
+      todoId: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'Users',
+          key: 'id',
+          as: 'userId',
         },
-    });
-    return Item;
+      },
+    }),
+  down: (queryInterface /* , Sequelize */) =>
+    queryInterface.dropTable('Items'),
 };
