@@ -15,7 +15,7 @@ module.exports= {
       });
   },
 
-  show(req, res) {
+  getOne(req, res) {
     User.findById(req.params.id, {
       include: Item
     })

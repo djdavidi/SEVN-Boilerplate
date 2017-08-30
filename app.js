@@ -21,7 +21,8 @@ app.use(cookieParser());
 // use passport to handle user sessions to keep track of them
 // while logged in
 // leave this fake secret in here for now until add in the env file before prod
-app.use(session({ secret: 'fourteenseventyfiveandttwentyairflightiniters'}));
+app.use(session({ secret: 'fourteenseventyfiveandttwentyairflightiniters',resave: true,
+    saveUninitialized: true}));
 app.use(passport.initialize());
 app.use(passport.session());
 // app.use(express.static(path.join(__dirname, '..', '..', 'client')));
@@ -49,6 +50,6 @@ app.get("*", (req, res) => res.status(200).send({
 app.use(function(err, req, res, next) {
 	res.status(500).send({err: err});
 });
-require('./server/config/passport/passport.js')(passport);
+require('./server/config/passport.js')(passport);
 
 module.exports = app;
