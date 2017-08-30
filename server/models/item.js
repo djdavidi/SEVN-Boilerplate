@@ -1,4 +1,4 @@
-module.exports = (sequelize, DataTypes) => {
+module.exports = (sequelize, Sequelize) => {
     const Item = sequelize.define('Item', {
       id: {
         allowNull: false,
@@ -25,7 +25,7 @@ module.exports = (sequelize, DataTypes) => {
     }, {
         classMethods: {
             associate: (models) => {
-                Item.belongsTo(models.Todo, {
+                Item.belongsTo(models.User, {
                     foreignKey: 'userId',
                     onDelete: 'CASCADE',
                 });
