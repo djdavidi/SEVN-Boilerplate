@@ -1,6 +1,7 @@
 'use strict';
 // add hashing bcrypt etc in later versions that dont use oauth
 // and are actual real applications
+// https://nodeontrain.xyz/tuts/secure_password/
 module.exports = function(sequelize, DataTypes) {
   var User = sequelize.define('User', {
     name: {

@@ -7,17 +7,28 @@ const store = new Vuex.Store({
     projects: []
   },
   actions: {
-    LOAD_PROJECT_LIST: function ({ commit }) {
-      axios.get("/api/todos").then((response) => {
-        commit("SET_PROJECT_LIST", { list: response.data })
+    LOAD_ITEMS: ({ commit }) => {
+      axios.get("/api/item").then((response) => {
+        console.log("ITEMS", response)
+        commit("SET_ITEMS", { list: response.data })
       }, (err) => {
-        console.log("LOAD_PROJECT_LIST-ERROR: ", err);
+        console.log("LOAD_Items Error: ", err);
+      })
+    },
+    CREATE_ITEM: (state, {commit}) => {
+    axios.post("/api/item").then((response) => {
+        commit("SET_ITEMS", { item: response.data })
+      }, (err) => {
+        console.log("LOAD_Items Error: ", err);
       })
     }
   },
   mutations: {
-    SET_PROJECT_LIST: (state, { list }) => {
+    SET_ITEMS: (state, { list }) => {
       state.projects = list
+    },
+    ADD_ITEM: (state, {item}) => {
+      state.projects.push(item)
     }
   },
   getters: {

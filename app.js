@@ -33,7 +33,7 @@ var models = require("./server/models/");
 //Sync Database
 models.sequelize.sync().then(function() {
  
-    console.log('Nice! Database looks fine')
+    console.log('Database synced and ready to go')
  
 }).catch(function(err) {
  

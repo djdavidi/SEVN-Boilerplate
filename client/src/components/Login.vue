@@ -1,4 +1,3 @@
-
 <template>
   <div class="login-page">
    <button @click="loginUser"></button>

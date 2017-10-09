@@ -1,6 +1,7 @@
 <template>
   <div class="home-page">
     {{welcomeMessage}}
+    <button @click="addItem">click me</button>
   </div>
 </template>
 
@@ -15,7 +16,12 @@ export default {
   },
   computed: mapState([
   "projects"
-  ])
+  ]),
+  methods: {
+    addItem() {
+      this.$store.dispatch()
+    }
+  }
 }
 </script>
 

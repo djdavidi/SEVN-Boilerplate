@@ -10,7 +10,8 @@ import axios from "axios";
 export default {
   name: "app",
   created() {
-    this.$store.dispatch("LOAD_PROJECT_LIST");
+    console.log("in app created")
+    this.$store.dispatch("LOAD_ITEMS");
   }
 }
 </script>

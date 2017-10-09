@@ -6,8 +6,9 @@ module.exports = (app, passport) => {
         message: "Welcome to the SEVN-Boilerplate",
     }));
 
-    app.post("/api/items", itemsController.create);
-    app.get("/api/items", itemsController.getOne);
+    app.post("/api/item", itemsController.create);
+    app.get("/api/item", itemsController.getAll);
+    app.get("/api/item/:id", itemsController.getOne);
 
 
 
